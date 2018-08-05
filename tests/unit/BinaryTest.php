@@ -245,22 +245,20 @@ class BinaryTest extends TestCase {
     $string = new SeekableString('string');
     $binary = new Binary($string, 0, NULL);
 
-    $binary->setFlags(0b1000000);
     $sub_binary = $binary->getPart(0, NULL);
 
     $this->assertEquals($binary, $sub_binary);
     $this->assertNotSame($binary, $sub_binary);
-    $this->assertSame($binary->getFlags(), $sub_binary->getFlags());
 
     $sub_binary = $binary->getPart(0, NULL, ClassExtendingBinary::class);
 
     $this->assertSame(ClassExtendingBinary::class, get_class($sub_binary));
-    $this->assertSame(0b1000000 | Binary::SIGNED, $sub_binary->getFlags());
+    $this->assertSame(Binary::SIGNED, $sub_binary->getFlags());
 
     $binary_wrapper = $binary->getPart(0, NULL, ClassImplementingBinaryInterface::class);
 
     $this->assertSame(ClassImplementingBinaryInterface::class, get_class($binary_wrapper));
-    $this->assertSame(0b1000000 | Binary::SIGNED, $binary_wrapper->getFlags());
+    $this->assertSame(Binary::SIGNED, $binary_wrapper->getFlags());
 
     $sub_binary_wrapper = $binary_wrapper->getPart(0, NULL);
     $this->assertSame(ClassImplementingBinaryInterface::class, get_class($sub_binary_wrapper));

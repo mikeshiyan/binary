@@ -118,7 +118,7 @@ class Binary implements BinaryInterface {
     // Workaround for bug with the call_user_func() and the late static binding.
     // @link https://bugs.php.net/bug.php?id=64914
     $method = [$class, 'create'];
-    return $method($this->string, $offset, $length, $this->flags);
+    return $method($this->string, $offset, $length);
   }
 
   /**
